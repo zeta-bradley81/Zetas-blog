@@ -1,3 +1,4 @@
+import os
 import sqlalchemy
 from flask import Flask, render_template, redirect, url_for, flash, abort
 from flask_bootstrap import Bootstrap
@@ -11,11 +12,12 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
-
+import secrets
 login_manager = LoginManager()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+# app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
@@ -234,4 +236,5 @@ def delete_post(post_id):
 
 if __name__ == "__main__":
     # app.run(host='0.0.0.0', port=5000)
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run()
